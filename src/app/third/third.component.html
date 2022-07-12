@@ -1,1 +1,11 @@
 <p>third works!</p>
+
+Rating 2: {{ rate2 }}<br />
+Rating 3: {{ rate3 }}<br />
+Rating 5: {{ form.get('rate5')?.value }}<br /><br />
+
+<form [formGroup]="form">
+  <context-provider provide="rate2 rate3 rate5 onRating2 onRating3">
+    <app-third-sub></app-third-sub>
+  </context-provider>
+</form>

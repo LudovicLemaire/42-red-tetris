@@ -19,6 +19,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ThirdComponent } from './third/third.component';
+import { ThirdSubComponent } from './third/third-sub/third-sub.component';
+import { ThirdSubSubComponent } from './third/third-sub/third-sub-sub/third-sub-sub.component';
+import { NgxContextModule } from 'ngx-context';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { ThirdComponent } from './third/third.component';
     HeroChildComponent,
     HeroParentComponent,
     ThirdComponent,
+    ThirdSubComponent,
+    ThirdSubSubComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { ThirdComponent } from './third/third.component';
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    NgxContextModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
