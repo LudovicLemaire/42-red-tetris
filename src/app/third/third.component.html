@@ -1,11 +1,11 @@
-<p>third works!</p>
+<p>third component works!</p>
 
+Rating 1: {{ rate1 }}<br />
 Rating 2: {{ rate2 }}<br />
-Rating 3: {{ rate3 }}<br />
-Rating 5: {{ form.get('rate5')?.value }}<br /><br />
+Rating 3: {{ form.get('rate3')?.value }}<br /><br />
 
 <form [formGroup]="form">
-  <context-provider provide="rate2 rate3 rate5 onRating2 onRating3">
+  <context-provider provide="rate1 rate2 rate3 onRating1 onRating2">
     <app-third-sub></app-third-sub>
   </context-provider>
 </form>

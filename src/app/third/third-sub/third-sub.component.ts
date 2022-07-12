@@ -7,8 +7,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./third-sub.component.scss'],
 })
 export class ThirdSubComponent implements OnInit {
-  rate2!: number;
-  onRating2!: (rate: number) => void;
+  rate1!: number;
+  onRating1!: (rate: number) => void;
 
   constructor() {}
 

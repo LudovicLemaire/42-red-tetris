@@ -1,35 +1,35 @@
-<p>third-sub works!</p>
-<context-consumer consume="rate2 rate4 onRating2"></context-consumer>
+<p>third-sub component works!</p>
+<context-consumer consume="rate1  onRating1"></context-consumer>
 
 <mat-form-field appearance="fill">
-  <mat-label>Number</mat-label>
+  <mat-label>Rating 1</mat-label>
   <input
     matInput
     type="number"
     placeholder="1"
-    [ngModel]="rate2"
-    (ngModelChange)="onRating2($event)" />
+    [ngModel]="rate1"
+    (ngModelChange)="onRating1($event)" />
 </mat-form-field>
-rate2[{{ rate2 }}]
+- rate1: [{{ rate1 }}]
 <br />
 
-<ng-template contextDisposer="rate3 onRating3" let-context>
+<ng-template contextDisposer="rate2 onRating2" let-context>
   <mat-form-field appearance="fill">
-    <mat-label>Number</mat-label>
+    <mat-label>Rating 2</mat-label>
     <input
       matInput
       type="number"
       placeholder="1"
-      [ngModel]="context.rate3"
-      (ngModelChange)="context.onRating3($event)" />
+      [ngModel]="context.rate2"
+      (ngModelChange)="context.onRating2($event)" />
   </mat-form-field>
-  rate3[{{ context.rate3 }}]
+  - rate2: [{{ context.rate2 }}]
 </ng-template>
 <br />
 
-<ng-template contextDisposer="rate5" let-control="rate5">
+<ng-template contextDisposer="rate3" let-control="rate3">
   <mat-form-field appearance="fill">
-    <mat-label>Number</mat-label>
+    <mat-label>Rating 3</mat-label>
     <input
       matInput
       type="number"
@@ -37,5 +37,5 @@ rate2[{{ rate2 }}]
       *ngIf="control"
       [formControl]="control" />
   </mat-form-field>
-  rate5[{{ control }}]
+  - rate3: [{{ control.value }}]
 </ng-template>

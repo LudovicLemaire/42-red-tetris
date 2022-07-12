@@ -6,23 +6,23 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./third.component.scss'],
 })
 export class ThirdComponent implements OnInit {
-  rate2 = 4;
-  rate3 = 2;
+  rate1 = 4;
+  rate2 = 2;
 
+  onRating1 = (value: number) => {
+    this.rate1 = value;
+  };
   onRating2 = (value: number) => {
     this.rate2 = value;
   };
-  onRating3 = (value: number) => {
-    this.rate3 = value;
-  };
 
   form: FormGroup;
-  rate5: FormControl;
+  rate3: FormControl;
 
   constructor(private fb: FormBuilder) {
-    this.rate5 = this.fb.control(3);
+    this.rate3 = this.fb.control(3);
     this.form = this.fb.group({
-      rate5: this.rate5,
+      rate3: this.rate3,
     });
   }
 
