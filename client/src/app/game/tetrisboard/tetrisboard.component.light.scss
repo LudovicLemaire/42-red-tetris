@@ -1,0 +1,8 @@
+@use '../../../theme.scss' as theme;
+
+.FlexContainer {
+  div {
+    background-color: theme.$warnColor !important;
+    box-shadow: 0 0 2px 2px theme.$accentColor !important;
+  }
+}

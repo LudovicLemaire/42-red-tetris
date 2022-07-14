@@ -15,6 +15,11 @@ export class AppComponent {
     { label: 'First component', route: 'first-component', icon: 'home' },
     { label: 'Second component', route: 'second-component', icon: 'settings' },
     { label: 'Third component', route: 'third-component', icon: 'book' },
+    {
+      label: 'Game component',
+      route: 'game-component',
+      icon: 'videogame_asset',
+    },
   ];
   menu = false;
   weshalors = 'green';

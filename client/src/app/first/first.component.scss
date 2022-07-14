@@ -1,0 +1,6 @@
+@use '../../theme.scss' as theme;
+@import '~@angular/material/theming';
+
+.warnColor {
+  color: mat-color(theme.$warn);
+}

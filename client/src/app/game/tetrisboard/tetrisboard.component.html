@@ -1,0 +1,16 @@
+<mat-card>
+  <div class="FlexContainer">
+    <ng-container *ngFor="let a of playerGameboard">
+      <ng-container *ngFor="let b of a">
+        <div
+          [ngClass]="{
+            finalPlace: b === 1,
+            piece: b === 2,
+            preFinalPlace: b === 3
+          }">
+          {{ b }}
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</mat-card>

@@ -22,6 +22,9 @@ import { ThirdComponent } from './third/third.component';
 import { ThirdSubComponent } from './third/third-sub/third-sub.component';
 import { ThirdSubSubComponent } from './third/third-sub/third-sub-sub/third-sub-sub.component';
 import { NgxContextModule } from 'ngx-context';
+import { GameComponent } from './game/game.component';
+import { TetrisboardComponent } from './game/tetrisboard/tetrisboard.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { NgxContextModule } from 'ngx-context';
     ThirdComponent,
     ThirdSubComponent,
     ThirdSubSubComponent,
+    GameComponent,
+    TetrisboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { NgxContextModule } from 'ngx-context';
     ReactiveFormsModule,
     MatSlideToggleModule,
     NgxContextModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

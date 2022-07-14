@@ -1,0 +1,37 @@
+@use '../../../theme.scss' as theme;
+
+.FlexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  height: 100%;
+  overflow: auto;
+  flex-direction: row;
+
+  div {
+    width: calc(10% - 10px);
+    margin: 5px;
+    aspect-ratio: 1 / 1;
+    // height: 0;
+    // padding-bottom: calc(10% - 10px);ß
+    background-color: #5a5b62;
+    box-shadow: 0 0 2px 2px #d9dbe3;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75vh;
+  }
+
+  .piece {
+    background-color: theme.$accentColor;
+  }
+  .preFinalPlace {
+    background-color: #d9dbe3;
+  }
+  .finalPlace {
+    background-color: theme.$primaryColor;
+  }
+}
