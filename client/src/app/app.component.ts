@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ChangeDetectorRef, Component, HostBinding } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class AppComponent {
   ];
   menu: boolean = false;
 
-  toggleTheme = new FormControl(
+  toggleTheme = new UntypedFormControl(
     !(
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches

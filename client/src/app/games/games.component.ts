@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {UntypedFormControl, Validators} from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ import { SocketIoService } from '../socketio-service/socket-io.service';
 	],
 })
 export class GamesComponent implements OnInit {
-	room = new FormControl('Room-5', [Validators.required, Validators.maxLength(15), Validators.pattern('[a-zA-Z].*-.*[0-9]')]);
+	room = new UntypedFormControl('Room-5', [Validators.required, Validators.maxLength(15), Validators.pattern('[a-zA-Z].*-.*[0-9]')]);
 	mouseOvered = 0;
 	typeAnimation = 0;
   allGames: {[key: string]: number} = {};
