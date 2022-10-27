@@ -47,6 +47,18 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  ::-webkit-scrollbar {
+	width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+	background: #666;
+  }
+
+  ::-webkit-scrollbar-thumb {
+	background: #ddd;
+	border-radius: 20px;
+  }
 }
 .avatarImg {
   width: 40px;
@@ -56,6 +68,39 @@ body {
 .inherit {
   color: inherit !important;
 }
+
 .mr-8 {
   margin-right: 8px;
+}
+.mt-5 {
+	margin-top: 5px;
+}
+.mt-20 {
+	margin-top: 20px;
+}
+
+.font-size-12 {
+	font-size: 12px;
+}
+
+.primary-color {
+	color: theme.$primaryColor;
+}
+.success-color {
+	color: theme.$successColor;
+}
+.info-color {
+	color: theme.$infoColor;
+}
+.warn-color {
+	color: theme.$warnColor;
+}
+.error-color {
+	color: theme.$errorColor;
+}
+.light-grey-color {
+	color: theme.$lightGreyColor;
+}
+.grey-color {
+	color: theme.$greyColor;
 }

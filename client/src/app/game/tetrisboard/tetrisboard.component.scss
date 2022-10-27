@@ -11,13 +11,13 @@
   flex-direction: row;
 
   div {
-    width: calc(10% - 10px);
-    margin: 5px;
+    width: calc(10% - 5px);
+    margin: 2px;
     aspect-ratio: 1 / 1;
     // height: 0;
     // padding-bottom: calc(10% - 10px);ß
     background-color: #5a5b62;
-    box-shadow: 0 0 2px 2px #d9dbe3;
+    box-shadow: 0 0 1px 1px #d9dbe3;
     border-radius: 7px;
     display: flex;
     justify-content: center;
@@ -33,5 +33,6 @@
   }
   .finalPlace {
     background-color: theme.$primaryColor;
+    // background-color: #00000000;
   }
 }

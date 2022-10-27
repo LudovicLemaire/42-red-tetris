@@ -4,3 +4,41 @@
 .warnColor {
   color: mat-color(theme.$warn);
 }
+
+
+
+.anim-mask{
+
+  margin: 2rem auto;
+
+  }
+
+  .anim-mask img {
+
+  -webkit-mask: url("/assets/sprite.png");
+  mask: url("/assets/sprite.png");
+  -webkit-mask-size: 2300% 100%;
+  mask-size: 2300% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+
+  }
+
+  .anim-mask img:hover {
+
+    animation: anim-mask 1.25s steps(22) forwards
+
+  }
+
+  @keyframes anim-mask {
+
+  to {
+
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0
+
+    }
+
+  }
+
+

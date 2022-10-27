@@ -1,0 +1,36 @@
+@use './../../theme.scss' as theme;
+
+.chat-card {
+	width: 325px;
+}
+
+.chat-card-reduced {
+	width: 20px;
+	height: 15px;
+}
+
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.input-send-message {
+  width: 100%;
+	margin-bottom: -18px;
+}
+.message-part {
+	height: 300px;
+}
+
+.reduced-margin {
+	margin: 0px !important;
+}
+
+.invert {
+	display: flex;
+	flex-direction: column-reverse;
+	
+}
+.container-row-right {
+	display: flex;
+	justify-content: end;
+	margin: -10px !important;
+}

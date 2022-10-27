@@ -1,0 +1,57 @@
+<mat-card [ngClass]="expanded ? 'chat-card' : 'chat-card-reduced'" class="mat-elevation-z5">
+  <mat-card-content>
+    <div class="container-row-right">
+      <button mat-icon-button aria-label="isAdmin" color="primary" *ngIf="isAdmin">
+        <mat-icon>rocket</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Rename" (click)="leaveRooms()" *ngIf="expanded && (room !== '' && room !== undefined)" routerLink="/games-component">
+        <mat-icon>logout</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Rename" (click)="openDialog()" *ngIf="expanded">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="hide" (click)="changeExpanded()" *ngIf="expanded">
+        <mat-icon>expand_more</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="display" (click)="changeExpanded()" *ngIf="!expanded">
+        <mat-icon>expand_less</mat-icon>
+      </button>
+    </div>
+    <mat-tab-group animationDuration="0ms" class="message-part" (selectedTabChange)="updateChatIndex($event);">
+      <mat-tab label="Global">
+        <div class="invert">
+          <div *ngFor="let info of infoListGlobal">
+            <div *ngIf="info && info.type == 'connected'" class="success-color reduced-margin"><span class="font-size-12"><i>{{info.name}} entered the chat</i></span></div>
+            <div *ngIf="info && info.type == 'disconnected'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.name}} left the chat</i></span></div>
+            <div *ngIf="info && info.type == 'rename'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'create_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'message'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="room" *ngIf="room !== ''">
+        <div class="invert">
+          <div *ngFor="let info of infoListRoom">
+            <div *ngIf="info && info.type == 'join_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'leave_room'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'rename_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'new_admin_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type == 'message_room'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <form>
+      <mat-form-field appearance="fill" class="input-send-message" >
+        <mat-label>Message to send</mat-label>
+        <input matInput type="text" [(ngModel)]="newMessage" [ngModelOptions]="{standalone: true}">
+        <button matSuffix mat-icon-button aria-label="Send" color="primary" (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,11 @@
+<h3>Rename yourself</h3>
+<form>
+	<mat-form-field appearance="fill" class="input-send-message" >
+	<mat-label>Your name</mat-label>
+	<input matInput type="text" maxlength="15" [(ngModel)]="newName" [ngModelOptions]="{standalone: true}">
+	<mat-hint align="end">{{newName.length || 0}}/15</mat-hint>
+	<button matSuffix mat-icon-button aria-label="edit" (click)="editName()">
+		<mat-icon>edit</mat-icon>
+		</button>
+	</mat-form-field>
+</form>

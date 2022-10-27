@@ -2,10 +2,14 @@
   "dependencies": {
     "@types/node": "^18.0.4",
     "@types/socket.io": "^3.0.2",
+    "nodemon": "^2.0.20",
     "socket.io": "^4.5.1"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.6",
     "utf-8-validate": "^5.0.9"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
   }
 }

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstComponent } from './first/first.component';
-import { SecondComponent } from './second/second.component';
+import { GamesComponent } from './games/games.component';
 import { HeroChildComponent } from './first/hero-child/hero-child.component';
 import { HeroParentComponent } from './first/hero-parent/hero-parent.component';
 
@@ -18,26 +18,33 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ThirdComponent } from './third/third.component';
-import { ThirdSubComponent } from './third/third-sub/third-sub.component';
-import { ThirdSubSubComponent } from './third/third-sub/third-sub-sub/third-sub-sub.component';
 import { NgxContextModule } from 'ngx-context';
 import { GameComponent } from './game/game.component';
 import { TetrisboardComponent } from './game/tetrisboard/tetrisboard.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ChatboxComponent } from './chatbox/chatbox.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogRenameComponent } from './dialog-rename/dialog-rename.component';
+import { GameRoomComponent } from './game-room/game-room.component';
+import { EmptyComponent } from './empty/empty.component';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
     FirstComponent,
-    SecondComponent,
+    GamesComponent,
     HeroChildComponent,
     HeroParentComponent,
-    ThirdComponent,
-    ThirdSubComponent,
-    ThirdSubSubComponent,
     GameComponent,
     TetrisboardComponent,
+    ChatboxComponent,
+    DialogRenameComponent,
+    GameRoomComponent,
+    EmptyComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +62,11 @@ import { MatCardModule } from '@angular/material/card';
     MatSlideToggleModule,
     NgxContextModule,
     MatCardModule,
+    MatTabsModule,
+    MatDialogModule,
+    HotToastModule.forRoot(),
+    MatChipsModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

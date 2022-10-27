@@ -1,5 +1,5 @@
-<mat-card>
-  <div class="FlexContainer">
+<mat-card style="width: 400px; margin-top: -75px;">
+  <div class="FlexContainer" style="visibility: hidden;">
     <ng-container *ngFor="let a of playerGameboard">
       <ng-container *ngFor="let b of a">
         <div
@@ -8,7 +8,6 @@
             piece: b === 2,
             preFinalPlace: b === 3
           }">
-          {{ b }}
         </div>
       </ng-container>
     </ng-container>

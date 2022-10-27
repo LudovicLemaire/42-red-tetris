@@ -7,10 +7,18 @@
 $primary: mat.define-palette(mat.$blue-palette, 700);
 $accent: mat.define-palette(mat.$red-palette, 800);
 $warn: mat.define-palette(mat.$amber-palette);
+$success: mat.define-palette(mat.$green-palette, 700);
+$info: mat.define-palette(mat.$blue-palette, 100);
+$error: mat.define-palette(mat.$red-palette, 700);
+$lightGrey: mat.define-palette(mat.$grey-palette, 300);
+$grey: mat.define-palette(mat.$grey-palette, 500);
 
-$cacaLight: mat.get-color-from-palette($primary);
-$cacaDark: mat.get-color-from-palette($primary);
 
 $primaryColor: mat-color($primary);
 $accentColor: mat-color($accent);
 $warnColor: mat-color($warn);
+$successColor: mat-color($success);
+$infoColor: mat-color($info);
+$errorColor: mat-color($error);
+$lightGreyColor: mat-color($lightGrey);
+$greyColor: mat-color($grey);

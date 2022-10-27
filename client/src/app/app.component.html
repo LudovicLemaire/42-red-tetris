@@ -16,11 +16,12 @@
       <span class="white">Red tetris</span>
     </a>
     <span class="spacer"></span>
-
     <mat-icon class="mr-8">bedtime</mat-icon>
     <mat-slide-toggle [formControl]="toggleTheme" class="mr-8" color="warn">
     </mat-slide-toggle>
     <mat-icon>wb_sunny</mat-icon>
+    <div style="border-left: 1px solid #cecece; height: 35px; margin: 10px;"></div>
+    <mat-icon [class]="connectError ? 'error-color' : 'success-color'">wifi</mat-icon>
   </mat-toolbar>
 </p>
 
@@ -32,11 +33,13 @@
     [opened]="true">
     <mat-selection-list #items [multiple]="false">
       <mat-list-option
-        *ngFor="let item of testNavList"
+        *ngFor="let item of navList"
         [value]="item"
         [routerLink]="'/' + item.route"
         routerLinkActive="active"
         ariaCurrentWhenActive="page"
+        [disabled]="item.disabled"
+        [style]="item.disabled ? 'visibility: hidden;' : 'visibility: visible;'"
         class="inherit">
         <mat-icon matListIcon>{{ item.icon }}</mat-icon>
         <span *ngIf="menu">{{ item.label }}</span>
@@ -115,10 +118,10 @@
           </li>
           <li>
             <a
-              routerLink="/second-component"
+              routerLink="/games-component"
               routerLinkActive="active"
               ariaCurrentWhenActive="page"
-              >Second Component</a
+              >Games Component</a
             >
           </li>
           <li>
@@ -136,42 +139,7 @@
 
       <!-- Footer -->
       <footer>
-        Love Angular?&nbsp;
-        <a
-          href="https://github.com/angular/angular"
-          target="_blank"
-          rel="noopener">
-          Give our repo a star.
-          <div class="github-star-badge">
-            <svg
-              class="material-icons"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24">
-              <path d="M0 0h24v24H0z" fill="none" />
-              <path
-                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-            </svg>
-            Star
-          </div>
-        </a>
-        <a
-          href="https://github.com/angular/angular"
-          target="_blank"
-          rel="noopener">
-          <svg
-            class="material-icons"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24">
-            <path
-              d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-              fill="#1976d2" />
-            <path d="M0 0h24v24H0z" fill="none" />
-          </svg>
-        </a>
+        <app-chatbox></app-chatbox>
       </footer>
       <svg
         id="clouds"
