@@ -27,10 +27,10 @@
 .invert {
 	display: flex;
 	flex-direction: column-reverse;
-	
+
 }
 .container-row-right {
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 	margin: -10px !important;
 }

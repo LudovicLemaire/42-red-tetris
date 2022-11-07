@@ -14,7 +14,7 @@
 		>
 		Create room
 	</button>
-  <mat-card class="mt-20" *ngIf="(allGames | json) != '{}'">
+  <mat-card class="mt-20" *ngIf="(allGames | json) !== '{}'">
     <mat-selection-list #items [multiple]="false">
       <mat-list-option *ngFor="let item of allGames | keyvalue" [value]="item" routerLink="/game/{{item.key}}" class="inherit">
         <mat-icon mat-list-icon>{{item.value > 1 ? 'people_alt' : 'person'}}</mat-icon>

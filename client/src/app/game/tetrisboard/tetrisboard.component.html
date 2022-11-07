@@ -1,15 +1,15 @@
-<mat-card style="width: 400px; margin-top: -75px;">
-  <div class="FlexContainer" style="visibility: hidden;">
-    <ng-container *ngFor="let a of playerGameboard">
-      <ng-container *ngFor="let b of a">
-        <div
-          [ngClass]="{
-            finalPlace: b === 1,
-            piece: b === 2,
-            preFinalPlace: b === 3
-          }">
-        </div>
-      </ng-container>
+<div class="FlexContainer">
+  <ng-container *ngFor="let a of playerGameboard; let i = index">
+    <ng-container *ngFor="let b of a; let y = index">
+      <div
+        style="--i:{{(i+y)*0.75+5}}; opacity: 0;"
+        class="test"
+        [ngClass]="{
+          finalPlace: b === 1,
+          piece: b === 2,
+          preFinalPlace: b === 3
+        }">
+      </div>
     </ng-container>
-  </div>
-</mat-card>
+  </ng-container>
+</div>

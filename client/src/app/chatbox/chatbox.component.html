@@ -21,22 +21,22 @@
       <mat-tab label="Global">
         <div class="invert">
           <div *ngFor="let info of infoListGlobal">
-            <div *ngIf="info && info.type == 'connected'" class="success-color reduced-margin"><span class="font-size-12"><i>{{info.name}} entered the chat</i></span></div>
-            <div *ngIf="info && info.type == 'disconnected'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.name}} left the chat</i></span></div>
-            <div *ngIf="info && info.type == 'rename'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'create_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'message'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
+            <div *ngIf="info && info.type === 'connected'" class="success-color reduced-margin"><span class="font-size-12"><i>{{info.name}} entered the chat</i></span></div>
+            <div *ngIf="info && info.type === 'disconnected'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.name}} left the chat</i></span></div>
+            <div *ngIf="info && info.type === 'rename'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'create_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'message'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
           </div>
         </div>
       </mat-tab>
       <mat-tab [label]="room" *ngIf="room !== ''">
         <div class="invert">
           <div *ngFor="let info of infoListRoom">
-            <div *ngIf="info && info.type == 'join_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'leave_room'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'rename_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'new_admin_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
-            <div *ngIf="info && info.type == 'message_room'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
+            <div *ngIf="info && info.type === 'join_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'leave_room'" class="error-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'rename_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'new_admin_room'" class="grey-color reduced-margin"><span class="font-size-12"><i>{{info.message}}</i></span></div>
+            <div *ngIf="info && info.type === 'message_room'" class="reduced-margin"><span [style.color]="colorFromString(info.user)" class="font-size-12">{{info.name}} said:</span> {{info.message}}</div>
           </div>
         </div>
       </mat-tab>

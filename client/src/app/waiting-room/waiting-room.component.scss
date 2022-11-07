@@ -1,0 +1,32 @@
+.container-row-right {
+  display: flex;
+  justify-content: flex-end;
+  margin: -5px;
+  margin-bottom: -27px;
+  font-size: 10px;
+}
+
+.members {
+  min-width: 250px;
+  max-height: 605px;
+  opacity: 80%;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.modes {
+  height: 125px;
+}
+
+.list {
+  overflow: auto;
+  max-height: 605px;
+}
+
+.wait {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}

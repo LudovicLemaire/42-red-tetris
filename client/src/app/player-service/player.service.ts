@@ -6,7 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class PlayerService {
   public isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public room$: BehaviorSubject<string> = new BehaviorSubject('');
+  public room$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public isGameActive$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -22,5 +23,12 @@ export class PlayerService {
   };
   public setRoom(room: string) {
     this.room$.next(room);
+  }
+
+  public getIsGameActive() {
+    return this.isGameActive$.asObservable();
+  };
+  public setIsGameActive(isActive: boolean) {
+    this.isGameActive$.next(isActive);
   }
 }

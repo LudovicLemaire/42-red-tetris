@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstComponent } from './first/first.component';
 import { GamesComponent } from './games/games.component';
-import { HeroChildComponent } from './first/hero-child/hero-child.component';
-import { HeroParentComponent } from './first/hero-parent/hero-parent.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -31,44 +29,50 @@ import { EmptyComponent } from './empty/empty.component';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
+import { LottieModule } from 'ngx-lottie';
+import { WaitingRoomComponent } from './waiting-room/waiting-room.component';
+
+export function playerFactory() {
+	return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
+}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FirstComponent,
-    GamesComponent,
-    HeroChildComponent,
-    HeroParentComponent,
-    GameComponent,
-    TetrisboardComponent,
-    ChatboxComponent,
-    DialogRenameComponent,
-    GameRoomComponent,
-    EmptyComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    NgxContextModule,
-    MatCardModule,
-    MatTabsModule,
-    MatDialogModule,
-    HotToastModule.forRoot(),
-    MatChipsModule,
-    MatMenuModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+		FirstComponent,
+		GamesComponent,
+		GameComponent,
+		TetrisboardComponent,
+		ChatboxComponent,
+		DialogRenameComponent,
+		GameRoomComponent,
+		EmptyComponent,
+		WaitingRoomComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatButtonModule,
+		MatToolbarModule,
+		MatIconModule,
+		MatSidenavModule,
+		MatListModule,
+		MatInputModule,
+		MatSelectModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatSlideToggleModule,
+		NgxContextModule,
+		MatCardModule,
+		MatTabsModule,
+		MatDialogModule,
+		HotToastModule.forRoot(),
+		MatChipsModule,
+		MatMenuModule,
+		LottieModule.forRoot({ player: playerFactory }),
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

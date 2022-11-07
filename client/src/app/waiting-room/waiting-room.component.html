@@ -1,0 +1,44 @@
+<mat-tab-group *ngIf="isAdmin" (selectedTabChange)="updateModeIndex($event);" class="modes"
+  [@fadeAllAnimation]="animationOpacity">
+  <mat-tab label="Classic"><br> rush, no speed, no chrono, no battle. It's all about endurance (store score ?)</mat-tab>
+  <mat-tab label="Battle"><br>If more than 1 row is removed, an undestructible row will appear on others board (store
+    total of number if victory)</mat-tab>
+  <mat-tab label="Speed"><br>Goes faster and faster after each piece is placed (store score ?)</mat-tab>
+  <mat-tab label="Rush"><br>First to rush to 100 win (store time ?)</mat-tab>
+  <mat-tab label="Chrono"><br>5 minutes game (store score ?)</mat-tab>
+</mat-tab-group>
+<h3 *ngIf="!isAdmin" class="wait" [style]="animationOpacity === 'false' ? 'visibility: visible' : 'visibility: hidden'">
+  Waiting for Captain to launch the shuttle . . .</h3>
+
+<mat-card class="mt-20 members" [@fadeAllAnimation]="animationOpacity">
+  <mat-chip-list aria-label="Total players" class="container-row-right">
+    <mat-chip>{{members.length}}</mat-chip>
+  </mat-chip-list>
+  <mat-list class="list">
+    <mat-list-item *ngFor="let member of members">
+      <mat-icon mat-list-icon>{{member.isAdmin ? 'rocket' : 'person'}}</mat-icon>
+      <div mat-line>{{member.name}}</div>
+      <button mat-mini-fab color="primary" (click)="startGame();" aria-label="Launch"
+        *ngIf="(member.isAdmin && isAdmin) || members.length === 1">
+        <mat-icon>rocket_launch</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{id: member.id}"
+        *ngIf="isAdmin && !((member.isAdmin && isAdmin) || members.length === 1)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+
+<mat-menu #appMenu="matMenu" [@fadeAllAnimation]="animationOpacity">
+  <ng-template matMenuContent let-id="id">
+    <button mat-menu-item (click)="setAdmin(id)">
+      <mat-icon>rocket_launch</mat-icon>
+      <span>Convey Captain's hat</span>
+    </button>
+    <button mat-menu-item (click)="kickFromRoom(id)">
+      <mat-icon>swipe_up</mat-icon>
+      <span>Jettison</span>
+    </button>
+  </ng-template>
+</mat-menu>

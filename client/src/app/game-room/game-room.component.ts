@@ -1,80 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { PlayerService } from '../player-service/player.service';
-import { SocketIoService } from '../socketio-service/socket-io.service';
 
 @Component({
-  selector: 'app-game-room',
-  templateUrl: './game-room.component.html',
-  styleUrls: ['./game-room.component.scss']
+	selector: 'app-game-room',
+	templateUrl: './game-room.component.html',
+	styleUrls: ['./game-room.component.scss'],
 })
+export class GameRoomComponent implements OnInit, OnDestroy {
+	private isGameActiveSub$!: Subscription;
+	isGameActive: boolean = false;
+	isComplete: boolean = false;
+	private animationItem: AnimationItem | undefined;
 
-export class GameRoomComponent implements OnInit {
-  private getMembersSub$!: Subscription;
-  isAdmin!: boolean;
-  private isAdminSub$!: Subscription;
-  private kicked$!: Subscription;
-  members: {id: string, name: string, isAdmin: boolean}[] = [];
+	lottieOptions: AnimationOptions = {
+		path: '/assets/lottie/rocket3.json',
+		loop: 0,
+		autoplay: false,
+	};
 
-  constructor(private route: ActivatedRoute, private socketIoService: SocketIoService, private playerService: PlayerService, private router: Router) { }
+	constructor(private playerService: PlayerService, private ngZone: NgZone) {}
 
-  ngOnInit(): void {
-    this.route.fragment.subscribe(fragment => {
-      let roomId: string = "";
-      let userName: string = "";
-      if (fragment) {
-        let reg = fragment.match(/(?<=\[\s*).*?(?=\s*\])/gs)
-        if (reg) userName = reg[0];
-        roomId = fragment.split('[')[0];
-        if (userName !== '')
-          this.socketIoService.editName(userName);
-        if (roomId !== '')
-          this.socketIoService.joinRoom(roomId);
-      }
-    });
+	ngOnInit(): void {
+		this.isGameActiveSub$ = this.playerService
+			.getIsGameActive()
+			.subscribe((isActive: boolean) => {
+				this.isGameActive = isActive;
+				if (isActive) {
+					this.playLottie();
+				}
+			});
+	}
 
-    this.route.paramMap.subscribe(params => {
-      let roomId: string = params.get('roomId') ?? '';
-      if (roomId !== '') {
-        this.socketIoService.joinRoom(roomId);
-      }
-    });
+	ngOnDestroy() {
+		this.isGameActiveSub$.unsubscribe();
+	}
 
-    this.getMembersSub$ = this.socketIoService.getRoomMembers().subscribe((members:{id: string, name: string, isAdmin: boolean}[]) => {
-      this.members = members;
-    });
+	didComplete() {
+		this.isComplete = true;
+	}
 
-    this.kicked$ = this.socketIoService.kicked().subscribe((kicked: boolean) => {
-      if (kicked === true)
-        this.router.navigate(['/games-component']);
-    });
+	playLottie(): void {
+		this.ngZone.runOutsideAngular(() => {
+			if (this.animationItem) {
+				this.animationItem.setSpeed(0.75);
+				this.animationItem.play();
+			}
+		});
+	}
 
-    this.isAdminSub$ = this.playerService.getIsAdmin().subscribe((v: boolean) => {
-      this.isAdmin = v;
-    });
-  }
-
-  ngOnDestroy() {
-    this.socketIoService.unsubSocket('get_room_members');
-    this.getMembersSub$.unsubscribe();
-    this.kicked$.unsubscribe();
-    this.isAdminSub$.unsubscribe();
-  }
-
-  setRoom(room: string) {
-    this.playerService.setRoom(room);
-  }
-
-  kickFromRoom(id: string) {
-    this.socketIoService.kickFromRoom(id);
-  }
-
-  setAdmin(id: string) {
-    this.socketIoService.setAdmin(id);
-  }
-
-  startGame() {
-    this.socketIoService.setGameAvailability(true);
-  }
+	animationCreated(animationItem: AnimationItem): void {
+		this.animationItem = animationItem;
+	}
 }
