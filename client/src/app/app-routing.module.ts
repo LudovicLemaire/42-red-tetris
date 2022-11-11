@@ -4,20 +4,20 @@ import { FirstComponent } from './first/first.component';
 import { GamesComponent } from './games/games.component';
 import { GameRoomComponent } from './game-room/game-room.component';
 import { GameComponent } from './game/game.component';
-import { EmptyComponent } from './empty/empty.component';
+// import { EmptyComponent } from './empty/empty.component';
 
 const routes: Routes = [
-  { path: 'first-component', component: FirstComponent },
-  { path: 'games-component', component: GamesComponent },
-  { path: 'game-component', component: GameComponent },
-  { path: 'game', component: GameRoomComponent },
-  { path: 'game/:roomId', component: GameRoomComponent },
-  // { path: '**', component: EmptyComponent}
+	{ path: 'first-component', component: FirstComponent },
+	{ path: 'games-component', component: GamesComponent },
+	{ path: 'game-component', component: GameComponent },
+	{ path: 'game', component: GameRoomComponent },
+	{ path: 'game/:roomId', component: GameRoomComponent },
+	// { path: '**', component: EmptyComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}
 

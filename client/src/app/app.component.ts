@@ -139,8 +139,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
 		this.connectErrorSocketSub$ = this.socketIoService
 			.connectError()
-			.subscribe((err: any) => {
+			.subscribe((err: unknown) => {
 				if (err) this.connectError = true;
+				if (err)
+					this.toastService.error('ERROR - Disconnection (CODE 30000)', {
+						position: 'top-right',
+						dismissible: true,
+						theme: this.toggleTheme.value ? undefined : 'snackbar',
+					});
 			});
 
 		this.roomPlayerSub$ = this.playerService
@@ -156,11 +162,6 @@ export class AppComponent implements OnInit, OnDestroy {
 			if (this.connectError === false) return;
 			this.connectError = false;
 			if (this.room === '') {
-				this.toastService.success('Connection established', {
-					position: 'top-right',
-					dismissible: true,
-					theme: this.toggleTheme.value ? undefined : 'snackbar',
-				});
 			} else {
 				this.toastService.warning('The station has been reset', {
 					position: 'top-right',

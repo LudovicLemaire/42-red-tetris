@@ -28,7 +28,12 @@
 						"prefix": "app",
 						"style": "kebab-case"
 					}
-				]
+				],
+				"no-multiple-empty-lines": [
+					"error",
+					{ "max": 1, "maxBOF": 0, "maxEOF": 0 }
+				],
+				"@typescript-eslint/no-explicit-any": "error"
 			}
 		},
 		{

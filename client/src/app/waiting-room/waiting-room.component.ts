@@ -11,6 +11,7 @@ import {
 	animate,
 	transition,
 } from '@angular/animations';
+type GameMode = 'classic' | 'battle' | 'speed' | 'rush' | 'chrono';
 
 @Component({
 	selector: 'app-waiting-room',
@@ -32,8 +33,8 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
 	private getReadySub$!: Subscription;
 
 	members: { id: string; name: string; isAdmin: boolean }[] = [];
-	modes: string[] = ['clasic', 'battle', 'speed', 'rush', 'chrono'];
-	selectedMode: string = this.modes[0];
+	modes: GameMode[] = ['classic', 'battle', 'speed', 'rush', 'chrono'];
+	selectedMode: GameMode = this.modes[0];
 
 	animationOpacity: string = 'false';
 

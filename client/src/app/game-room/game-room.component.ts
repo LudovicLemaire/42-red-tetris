@@ -11,7 +11,7 @@ import { PlayerService } from '../player-service/player.service';
 })
 export class GameRoomComponent implements OnInit, OnDestroy {
 	private isGameActiveSub$!: Subscription;
-	isGameActive: boolean = false;
+	isGameActive: boolean | undefined = undefined;
 	isComplete: boolean = false;
 	private animationItem: AnimationItem | undefined;
 
@@ -27,6 +27,8 @@ export class GameRoomComponent implements OnInit, OnDestroy {
 		this.isGameActiveSub$ = this.playerService
 			.getIsGameActive()
 			.subscribe((isActive: boolean) => {
+				if (this.isGameActive === undefined && isActive === true)
+					this.isComplete = true;
 				this.isGameActive = isActive;
 				if (isActive) {
 					this.playLottie();

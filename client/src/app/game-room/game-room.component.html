@@ -1,15 +1,7 @@
 <mat-card class="card">
-  <ng-lottie
-    *ngIf="!isComplete"
-    class="lottie"
-    width="auto"
-    height="auto"
-    [options]="lottieOptions"
-    [style]="isGameActive ? 'z-index: 10000;': ''"
-    (animationCreated)="animationCreated($event)"
-    (loopComplete)="didComplete()"
-  ></ng-lottie>
-
+  <ng-lottie *ngIf="!isComplete" class="lottie" width="auto" height="auto" [options]="lottieOptions"
+    [style]="isGameActive ? 'z-index: 10000;': ''" (animationCreated)="animationCreated($event)"
+    (loopComplete)="didComplete()"></ng-lottie>
   <app-waiting-room *ngIf="!isGameActive"></app-waiting-room>
   <app-game *ngIf="isGameActive"></app-game>
 </mat-card>

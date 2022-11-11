@@ -120,8 +120,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 		this.room$ = this.playerService.getRoom().subscribe((room: string) => {
 			this.room = room;
 		});
-
-		this.socketIoService.getDebug();
 	}
 
 	ngOnDestroy() {
