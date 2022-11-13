@@ -3,7 +3,7 @@
 import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import Client from 'socket.io-client';
-import { ClientToServerEvents, ServerToClientEvents, InterServerEvents } from './script';
+import { ClientToServerEvents, ServerToClientEvents, InterServerEvents, unitTestsAngular } from './script';
 import { Game } from './game';
 import { Player } from './player';
 
@@ -12,10 +12,11 @@ describe('socket part', () => {
   let serverSocket: Socket<ClientToServerEvents, ServerToClientEvents, InterServerEvents, any>;
   let clientSocket: { on: (arg0: string, arg1: jest.DoneCallback) => void, close: () => void, emit: (arg0: string, arg1: (arg: unknown) => void) => void };
   const httpServer = createServer();
-  const PORT = 3030;
+  const PORT = 3040;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const allGames: Game[] = [];
   let self: Player;
+  const sockets: { [key: string]: { on: (arg0: string, arg1: jest.DoneCallback) => void, close: () => void, emit: (arg0: string, arg1: (arg: unknown) => void) => void } } = {};
 
   beforeAll((done) => {
     io = new Server<
@@ -29,18 +30,57 @@ describe('socket part', () => {
       }
     });
     httpServer.listen(PORT);
+    const mainUrl = 'http://localhost:3030';
     // @ts-expect-error
     clientSocket = new Client(`http://localhost:${PORT}`);
+    // @ts-expect-error
+    sockets.getReady = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.setGameAvailability = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.joinRoom1 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.joinRoom2 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.getGames = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.disconnect1 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.disconnect2 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.message = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.messageRoom = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.rename = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.setAdmin1 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.setAdmin2 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.kickFromRoom1 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.kickFromRoom2 = new Client(mainUrl);
+
+    // @ts-expect-error
+    sockets.testConnectError = new Client(mainUrl);
+
     io.on('connection', (socket) => {
       serverSocket = socket;
       self = new Player(serverSocket.id, serverSocket.id.slice(0, 4), serverSocket, io, allGames);
     });
     clientSocket.on('connect', done);
+    for (const property in sockets) {
+      sockets[property].on('connect', done);
+    }
   });
 
   afterAll(() => {
     io.close();
     clientSocket.close();
+    for (const property in sockets) {
+      if (property !== 'disconnect2') { sockets[property].close(); }
+    }
   });
 
   test('message_sTc', (done) => {
@@ -146,4 +186,213 @@ describe('socket part', () => {
     // @ts-expect-error
     clientSocket.emit('getRoomMembers', room);
   });
+
+  test('main_get_ready', (done) => {
+    // @ts-expect-error
+    sockets.getReady.on('get_ready', () => {
+      done();
+    });
+    // @ts-expect-error
+    sockets.getReady.on('toast', (type: string, msg: string) => {
+      if (msg === 'You are not the Captain') {
+        // @ts-expect-error
+        sockets.getReady.emit('join_room', 'main_get_ready');
+        setTimeout(() => {
+          // @ts-expect-error
+          sockets.getReady.emit('get_ready', 'classic');
+        }, 100);
+      }
+    });
+    // @ts-expect-error
+    sockets.getReady.emit('get_ready', 'classic');
+  });
+
+  test('main_set_game_availability', (done) => {
+    let i = 0;
+    // @ts-expect-error
+    sockets.setGameAvailability.on('get_games', () => {
+      if (i++ === 1) {
+        done();
+      }
+    });
+    // @ts-expect-error
+    sockets.setGameAvailability.on('toast', (type: string, msg: string) => {
+      if (msg === 'You are not the Captain') {
+        // @ts-expect-error
+        sockets.setGameAvailability.emit('join_room', 'main_set_game_availability');
+        setTimeout(() => {
+          // @ts-expect-error
+          sockets.setGameAvailability.emit('set_game_availability', 'classic');
+        }, 100);
+      }
+    });
+    // @ts-expect-error
+    sockets.setGameAvailability.emit('set_game_availability', 'classic');
+  });
+
+  test('main_join_room', (done) => {
+    // @ts-expect-error
+    sockets.joinRoom2.on('toast', (type: string, msg: string) => {
+      if (msg === 'You joined main_join_room') {
+        // @ts-expect-error
+        sockets.joinRoom2.emit('leave_rooms');
+        // @ts-expect-error
+        sockets.joinRoom1.emit('set_game_availability', false);
+        setTimeout(() => {
+          // @ts-expect-error
+          sockets.joinRoom2.emit('join_room', 'main_join_room');
+        }, 100);
+      } else if (msg === 'That room name is already taken') {
+        done();
+      }
+    });
+    // @ts-expect-error
+    sockets.joinRoom1.on('self_is_admin', () => {
+      // @ts-expect-error
+      sockets.joinRoom2.emit('join_room', 'main_join_room');
+    });
+    // @ts-expect-error
+    sockets.joinRoom1.emit('join_room', 'main_join_room');
+    // double join test
+    setTimeout(() => {
+    // @ts-expect-error
+      sockets.joinRoom1.emit('join_room', 'main_join_room');
+    }, 100);
+  });
+
+  test('main_get_games', (done) => {
+    // @ts-expect-error
+    sockets.getGames.on('get_games', (v: { [key: string]: number }) => {
+      for (const property in v) {
+        if (property === 'get_games' && v[property] === 1) {
+          done();
+        }
+      }
+    });
+    // @ts-expect-error
+    sockets.getGames.emit('join_room', 'get_games');
+    // @ts-expect-error
+    sockets.getGames.emit('get_games');
+  });
+
+  test('main_disconnect', (done) => {
+    // @ts-expect-error
+    sockets.disconnect1.on('info', (id: string, name: string, type: string, msg: string) => {
+      if (type === 'disconnected') done();
+    });
+    sockets.disconnect2.close();
+  });
+
+  test('main_message', (done) => {
+    // @ts-expect-error
+    sockets.message.on('info', (id: string, name: string, type: string, msg: string) => {
+      if (type === 'message' && msg === 'main_message') done();
+    });
+    // @ts-expect-error
+    sockets.message.emit('message', 'main_message');
+  });
+
+  test('main_message_room', (done) => {
+    // @ts-expect-error
+    sockets.messageRoom.on('toast', (type: string, msg: string) => {
+      // @ts-expect-error
+      sockets.messageRoom.emit('message_room', 'main_message_room');
+    });
+
+    // @ts-expect-error
+    sockets.messageRoom.on('info_room', (id: string, name: string, type: string, msg: string) => {
+      if (type === 'message_room' && msg === 'main_message_room') done();
+    });
+
+    // @ts-expect-error
+    sockets.messageRoom.emit('join_room', 'main_message_room');
+  });
+
+  test('main_rename', (done) => {
+    // @ts-expect-error
+    sockets.rename.on('info_room', (id: string, name: string, type: string, msg: string) => {
+      if (type === 'rename_room' && name === 'Globy is a pure') done();
+    });
+
+    // @ts-expect-error
+    sockets.rename.on('toast', (type: string, msg: string) => {
+      // @ts-expect-error
+      sockets.rename.emit('rename', 'Globy is a pure asshole');
+    });
+
+    // @ts-expect-error
+    sockets.rename.emit('join_room', 'main_rename');
+  });
+
+  test('main_setAdmin', (done) => {
+    // @ts-expect-error
+    sockets.setAdmin1.on('info_room', (id: string, name: string, type: string, msg: string) => {
+      // @ts-expect-error
+      if (sockets.setAdmin1.id !== id) {
+        // @ts-expect-error
+        sockets.setAdmin1.emit('set_admin', sockets.setAdmin1.id);
+        setTimeout(() => {
+        // @ts-expect-error
+          sockets.setAdmin1.emit('set_admin', id);
+        }, 100);
+      }
+    });
+
+    // @ts-expect-error
+    sockets.setAdmin1.on('self_is_admin', (isAdmin: boolean) => {
+      if (!isAdmin) { done(); }
+    });
+
+    // @ts-expect-error
+    sockets.setAdmin1.emit('join_room', 'main_setAdmin');
+    // @ts-expect-error
+    sockets.setAdmin2.emit('join_room', 'main_setAdmin');
+  });
+
+  test('main_kickFromRoom', (done) => {
+    // @ts-expect-error
+    sockets.kickFromRoom1.on('info_room', (id: string, name: string, type: string, msg: string) => {
+      // @ts-expect-error
+      if (sockets.kickFromRoom1.id !== id) {
+        // @ts-expect-error
+        sockets.kickFromRoom1.emit('kick_from_room', sockets.kickFromRoom1.id);
+        setTimeout(() => {
+          // @ts-expect-error
+          sockets.kickFromRoom1.emit('kick_from_room', id);
+        }, 100);
+      }
+    });
+
+    // @ts-expect-error
+    sockets.kickFromRoom2.on('toast', (type: string, msg: string) => {
+      if (type === 'warning' && msg === 'You have been jettisoned in space') { done(); }
+    });
+
+    // @ts-expect-error
+    sockets.kickFromRoom1.emit('join_room', 'main_kickFromRoom');
+    // @ts-expect-error
+    sockets.kickFromRoom2.emit('join_room', 'main_kickFromRoom');
+    // @ts-expect-error
+    sockets.kickFromRoom2.emit('kick_from_room', sockets.kickFromRoom1.id);
+  });
+
+  test('test_connect_error', (done) => {
+    // @ts-expect-error
+    sockets.testConnectError.on('connect_error_test', (msg: string) => {
+      expect(msg).toEqual('worked');
+      done();
+    });
+    // @ts-expect-error
+    sockets.testConnectError.emit('connect_error_test');
+  });
+
+  test('connect_error_test', (done) => {
+    unitTestsAngular(serverSocket);
+    done();
+  });
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function log (title: string, variable: unknown): void {
+  console.log(title, '\x1b[1m\x1b[36m', variable, '\x1b[0m');
+}

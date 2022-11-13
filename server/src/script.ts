@@ -1,4 +1,4 @@
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import { Player } from './player';
 import { Game } from './game';
@@ -95,10 +95,10 @@ io.on('connection', async (socket) => {
       `${socket.id}`,
       `${self.name}`,
       'rename',
-      `${self.name} renamed himself as ${name}`
+      `${self.name} renamed himself as ${name.slice(0, 15)}`
     );
     const oldName = self.name;
-    self.name = name;
+    self.name = name.slice(0, 15);
     if (self.room !== '' && self.room !== undefined) {
       io.in(self.room).emit('get_room_members', self.getRoomMembers(self.room));
       io.in(self.room).emit(
@@ -173,7 +173,6 @@ io.on('connection', async (socket) => {
         (element) => element.id === self.room
       );
       allGames[roomIndex].isAvailable = v;
-      console.log(self.room, 'availability:', v);
       io.emit('get_games', self.getAllAvailableRoomsReduced());
     } else {
       socket.emit('toast', 'error', 'You are not the Captain');
@@ -199,13 +198,6 @@ io.on('connection', async (socket) => {
             (element) => element.id === id
           );
           if (memberIndexToRemove > -1) { allGames[roomIndex].members.splice(memberIndexToRemove, 1); }
-          // delete game if empty
-          if (allGames[roomIndex].members.length === 0) {
-            const gameIndexToRemove = allGames.findIndex(
-              (element) => element.id === allGames[roomIndex].id
-            );
-            if (gameIndexToRemove > -1) allGames.splice(gameIndexToRemove, 1);
-          }
           member.room = '';
           io.to(member.id).emit('kicked', true);
           io.to(member.id).emit(
@@ -262,13 +254,22 @@ io.on('connection', async (socket) => {
     }
   });
 
+  /* istanbul ignore next */
   socket.on('connect_error', (err) => {
     console.log(`connect_error due to ${err.message}`);
   });
+
+  unitTestsAngular(socket);
 });
+
+export function unitTestsAngular (socket: Socket): void {
+  socket.on('connect_error_test', () => {
+    socket.emit('connect_error_test', 'worked');
+  });
+}
 
 httpServer.listen(PORT);
 
-console.log('Listen on port:', '\x1b[1m\x1b[32m' + PORT.toString(), '\x1b[0m');
+console.log('Listen on port:', '\x1b[1m\x1b[32m', PORT.toString(), '\x1b[0m');
 
 // npx ts-node script.ts

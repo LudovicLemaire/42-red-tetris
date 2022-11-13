@@ -36,6 +36,10 @@ export class SocketIoService {
 	public socket!: Socket;
 	constructor() {
 		this.socket = io('http://127.0.0.1:3030');
+		let self = this;
+		this.socket.on('connect', function () {
+			console.log('connected', self.socket.connected);
+		});
 	}
 
 	public sendMessage(message: string) {
@@ -150,6 +154,7 @@ export class SocketIoService {
 
 	public kicked = () => {
 		this.socket.on('kicked', (kicked: boolean) => {
+			console.log('PASSE');
 			this.kicked$.next(kicked);
 			this.kicked$.next(false);
 		});

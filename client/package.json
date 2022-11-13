@@ -23,10 +23,13 @@
     "@angular/platform-browser-dynamic": "~14.2.8",
     "@angular/router": "~14.2.8",
     "@ngneat/hot-toast": "^4.1.0",
+    "http": "^0.0.1-security",
     "lottie-web": "^5.9.6",
+    "mock-socket": "^9.1.5",
     "ngx-context": "^2.0.0",
     "ngx-lottie": "^9.1.0",
     "rxjs": "~7.5.0",
+    "socket.io": "^4.5.3",
     "socket.io-client": "^4.5.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
