@@ -1,20 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { SocketIoService } from './socket-io.service';
 import { Subscription } from 'rxjs';
-import { Server } from 'mock-socket';
 
 describe('SocketIoService', () => {
 	let service: SocketIoService;
 	let connectErrorSocketSub$!: Subscription;
 	let test$!: Subscription;
-	const mockServer = new Server('http://localhost:4200/');
-	mockServer.on('connection', () => {
-		console.log('PASSE 4200');
-	});
-	const mockServer2 = new Server('http://localhost:3030/');
-	mockServer2.on('connection', () => {
-		console.log('PASSE 3030');
-	});
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({});
@@ -45,7 +36,6 @@ describe('SocketIoService', () => {
 			// 	done();
 			// }
 		});
-		mockServer.emit('self_get_room', 'Room-5');
 	});
 });
 
