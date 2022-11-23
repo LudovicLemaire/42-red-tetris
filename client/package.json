@@ -25,7 +25,6 @@
     "@ngneat/hot-toast": "^4.1.0",
     "http": "^0.0.1-security",
     "lottie-web": "^5.9.6",
-    "mock-socket": "^9.1.5",
     "ngx-context": "^2.0.0",
     "ngx-lottie": "^9.1.0",
     "rxjs": "~7.5.0",

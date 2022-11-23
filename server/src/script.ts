@@ -35,6 +35,7 @@ export interface ClientToServerEvents {
   get_ready: (mode: GameMode) => void
   start_game: () => void
   connect_error: (err: { message: string }) => void
+  test_self_get_room: () => void
 }
 
 export interface InterServerEvents {
@@ -165,6 +166,10 @@ io.on('connection', async (socket) => {
 
   socket.on('start_game', () => {
     // TODO
+  });
+
+  socket.on('test_self_get_room', () => {
+    socket.emit('self_get_room', 'Room-5');
   });
 
   socket.on('set_game_availability', (v: boolean) => {
