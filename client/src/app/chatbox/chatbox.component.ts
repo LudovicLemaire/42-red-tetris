@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DialogRenameComponent } from '../dialog-rename/dialog-rename.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacyTabChangeEvent as MatTabChangeEvent } from '@angular/material/legacy-tabs';
 import { Subscription } from 'rxjs';
 import { SocketIoService } from '../socketio-service/socket-io.service';
 import { PlayerService } from '../player-service/player.service';

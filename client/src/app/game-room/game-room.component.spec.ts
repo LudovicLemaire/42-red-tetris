@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { LottieModule } from 'ngx-lottie';
 
 import { GameRoomComponent } from './game-room.component';
 import { WaitingRoomComponent } from '../waiting-room/waiting-room.component';
 import { RouterModule } from '@angular/router';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayerService } from '../player-service/player.service';
 

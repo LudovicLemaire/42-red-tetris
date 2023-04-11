@@ -1,38 +1,42 @@
 @use '@angular/material' as mat;
 @use './theme.scss' as theme;
+@use 'node_modules/@ngneat/hot-toast/src/styles/styles.scss';
 
-@include mat.core();
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
+// @include mat.all-legacy-component-typographies();
+@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());
+@include mat.legacy-core();
 
-$light-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: theme.$primary,
-      accent: theme.$accent,
-      warn: theme.$warn,
-    ),
-  )
-);
+$light-theme: mat.define-light-theme((color: (primary: theme.$primary,
+        accent: theme.$accent,
+        warn: theme.$warn,
+      ),
+    ));
 
 // Define a dark theme
-$dark-theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: theme.$primary,
-      accent: theme.$accent,
-      warn: theme.$warn,
-    ),
-  )
-);
+$dark-theme: mat.define-dark-theme((color: (primary: theme.$primary,
+        accent: theme.$accent,
+        warn: theme.$warn,
+      ),
+    ));
 
 // Apply the dark theme by default
-@include mat.all-component-themes($dark-theme);
+@include mat.all-legacy-component-themes($dark-theme);
 
 // Apply the light theme only when the `.my-light-theme` CSS class is applied
 // to an ancestor element of the components (such as `body`).
 .light-theme {
-  @include mat.all-component-themes($light-theme);
+  @include mat.all-legacy-component-colors($light-theme);
   @import 'app/game/tetrisboard/tetrisboard.component.light.scss';
 }
+
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -44,27 +48,31 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+
   ::-webkit-scrollbar {
-	width: 5px;
+    width: 5px;
   }
 
   ::-webkit-scrollbar-track {
-	background: #666;
+    background: #666;
   }
 
   ::-webkit-scrollbar-thumb {
-	background: #ddd;
-	border-radius: 20px;
+    background: #ddd;
+    border-radius: 20px;
   }
 }
+
 .avatarImg {
   width: 40px;
   height: 40px;
   font-size: 40px;
 }
+
 .inherit {
   color: inherit !important;
 }
@@ -72,35 +80,43 @@ body {
 .mr-8 {
   margin-right: 8px;
 }
+
 .mt-5 {
-	margin-top: 5px;
+  margin-top: 5px;
 }
+
 .mt-20 {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .font-size-12 {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 .primary-color {
-	color: theme.$primaryColor;
+  color: theme.$primaryColor;
 }
+
 .success-color {
-	color: theme.$successColor;
+  color: theme.$successColor;
 }
+
 .info-color {
-	color: theme.$infoColor;
+  color: theme.$infoColor;
 }
+
 .warn-color {
-	color: theme.$warnColor;
+  color: theme.$warnColor;
 }
+
 .error-color {
-	color: theme.$errorColor;
+  color: theme.$errorColor;
 }
+
 .light-grey-color {
-	color: theme.$lightGreyColor;
+  color: theme.$lightGreyColor;
 }
+
 .grey-color {
-	color: theme.$greyColor;
+  color: theme.$greyColor;
 }
