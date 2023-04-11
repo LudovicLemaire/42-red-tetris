@@ -1,0 +1,6 @@
+<div class="start-position anim-mask fadeIn" [class.start-anim-mask]="hasLost">
+  <img src="/assets/pieces/{{chaosPieceRemaining > 0 ? 'chaos' : sack[0]}}.png" class="piece current"
+    [class.fadeOutCurrent]="hasLost">
+  <img src="/assets/pieces/{{chaosPieceRemaining > 1 ? 'chaos' : sack[1]}}.png" class="piece">
+  <img src="/assets/pieces/{{chaosPieceRemaining > 2 ? 'chaos' : sack[2]}}.png" class="piece">
+</div>

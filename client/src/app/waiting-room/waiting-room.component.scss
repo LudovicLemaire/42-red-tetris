@@ -12,6 +12,12 @@
   opacity: 80%;
 }
 
+.members-mobile {
+  min-width: 100px;
+  max-height: 205px;
+  opacity: 80%;
+}
+
 .mr-5 {
   margin-right: 5px;
 }
@@ -23,6 +29,11 @@
 .list {
   overflow: auto;
   max-height: 605px;
+}
+
+.list-mobile {
+  overflow: auto;
+  max-height: 205px;
 }
 
 .wait {

@@ -1,0 +1,27 @@
+@use '../../theme.scss' as theme;
+
+.start-position {
+  position: fixed;
+  margin-top: -670px;
+  margin-left: 605px;
+  padding: 15px;
+  border-radius: 25px;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.35), inset 0 0 25px 5px rgba(0, 0, 0, 0.4);
+
+  background-color: theme.$primaryColor;
+}
+
+.start-position:hover {
+  background-color: theme.$accentColor;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.35), inset 0 0 15px 10px rgba(0, 0, 0, 0.4);
+}
+
+.fadeIn {
+  opacity: 1;
+  transition: opacity 250ms linear;
+}
+
+.remove {
+  opacity: 0;
+  pointer-events: none;
+}

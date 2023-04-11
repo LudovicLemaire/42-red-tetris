@@ -31,6 +31,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { LottieModule } from 'ngx-lottie';
 import { WaitingRoomComponent } from './waiting-room/waiting-room.component';
+import { MobileGameUIComponent } from './mobile-game-ui/mobile-game-ui.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { PlayerSackComponent } from './player-sack/player-sack.component';
+import { ChaosButtonComponent } from './chaos-button/chaos-button.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export function playerFactory() {
 	return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -48,6 +53,9 @@ export function playerFactory() {
 		GameRoomComponent,
 		EmptyComponent,
 		WaitingRoomComponent,
+		MobileGameUIComponent,
+		PlayerSackComponent,
+		ChaosButtonComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -71,6 +79,8 @@ export function playerFactory() {
 		MatChipsModule,
 		MatMenuModule,
 		LottieModule.forRoot({ player: playerFactory }),
+		MatGridListModule,
+		MatPaginatorModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

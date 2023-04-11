@@ -1,4 +1,5 @@
 import { Server, Socket } from 'socket.io';
+import { Board } from './board';
 import { Game } from './game';
 
 export class Player {
@@ -9,6 +10,7 @@ export class Player {
   public socket: Socket;
   public io: Server;
   public allGames: Game[];
+  public board: Board;
 
   constructor (id: string, name: string, socket: Socket, ioRef: Server, allGamesRef: Game[]) {
     this.id = id;
@@ -18,6 +20,7 @@ export class Player {
     this.socket = socket;
     this.io = ioRef;
     this.allGames = allGamesRef;
+    this.board = new Board();
   }
 
   getAdminName (): string {

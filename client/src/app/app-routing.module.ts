@@ -8,7 +8,7 @@ import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
 	{ path: 'first-component', component: FirstComponent },
-	{ path: 'games-component', component: GamesComponent },
+	{ path: 'games', component: GamesComponent },
 	{ path: 'game-component', component: GameComponent },
 	{ path: 'game', component: GameRoomComponent },
 	{ path: 'game/:roomId', component: GameRoomComponent },
@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [RouterModule.forRoot(routes, { useHash: true })],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -29,7 +29,7 @@ import { SocketIoService } from '../socketio-service/socket-io.service';
 	],
 })
 export class GamesComponent implements OnInit, OnDestroy {
-	room = new UntypedFormControl('Room-5', [
+	room = new UntypedFormControl('', [
 		Validators.required,
 		Validators.maxLength(15),
 		Validators.pattern('[a-zA-Z].*-.*[0-9]'),
@@ -69,11 +69,11 @@ export class GamesComponent implements OnInit, OnDestroy {
 		if (this.room.hasError('pattern')) {
 			return 'Wrong pattern [abc-5]';
 		}
-
 		return '';
 	}
 
 	moveButton() {
+		this.room.markAsTouched();
 		if (this.getErrorMessage() !== '') {
 			this.mouseOvered++;
 			if (this.mouseOvered % 4 === 0) {
@@ -88,11 +88,10 @@ export class GamesComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	/* istanbul ignore next */
 	joinRoom() {
 		if (this.getErrorMessage() === '') {
 			this.router.navigate(['/game/', this.room.value]);
-		} else {
-			console.log('not valid');
 		}
 	}
 }

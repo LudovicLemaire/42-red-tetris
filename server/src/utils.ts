@@ -1,1 +1,1 @@
-export type GameMode = 'classic' | 'battle' | 'speed' | 'rush' | 'chrono';
+export type GameMode = 'classic' | 'battle' | 'blind' | 'free' | 'semi-chaos' | 'pvp-chaos';

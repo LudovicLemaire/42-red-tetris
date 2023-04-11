@@ -9,11 +9,16 @@
   .piece {
     background-color: theme.$accentColor !important;
   }
+
   .preFinalPlace {
     background-color: #d9dbe3 !important;
   }
+
   .finalPlace {
+    background-color: #00000000 !important;
+  }
+
+  .finalPlaceSpectra {
     background-color: theme.$primaryColor !important;
-    // background-color: #00000000 !important;
   }
 }

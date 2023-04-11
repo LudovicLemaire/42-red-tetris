@@ -8,7 +8,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "wlint": "nodemon --exec \"npm run lint || exit 1\" --ext ts,html,scss"
+    "wlint": "nodemon --exec \"npm run lint || exit 1\" --ext ts,html,scss",
+    "startOnline": "ng serve --host 0.0.0.0",
+    "onlineBuild": "http-server . -p 3000 --proxy https://tetris.globy.dev?",
+    "coverage": "ng test --no-watch --code-coverage"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~14.2.8",
     "@angular/router": "~14.2.8",
     "@ngneat/hot-toast": "^4.1.0",
+    "@ngneat/overview": "^3.0.4",
     "http": "^0.0.1-security",
     "lottie-web": "^5.9.6",
     "ngx-context": "^2.0.0",

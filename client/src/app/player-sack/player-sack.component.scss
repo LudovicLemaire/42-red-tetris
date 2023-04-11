@@ -1,0 +1,66 @@
+.start-position {
+  position: fixed;
+  margin-top: -780px;
+  margin-left: 450px;
+  padding: 15px;
+  border-radius: 25px;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.35), inset 5px 5px 9px rgba(94, 104, 121, 0.2), inset 0 0 7px 10px rgba(0, 0, 0, 0.4);
+  background-image: url("/assets/radar.png");
+  background-repeat: no-repeat;
+  background-size: 380px 175px;
+}
+
+.current {
+  box-shadow: inset 0 0 4px 4px #ffffff36;
+}
+
+.piece {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+}
+
+.fadeOutCurrent {
+  -webkit-animation-name: fadeOutCurrent;
+  -webkit-animation-duration: 2s;
+  animation-name: fadeOutCurrent;
+  animation-duration: 2s;
+  box-shadow: none;
+}
+
+@keyframes fadeOutCurrent {
+  0% {
+    box-shadow: inset 0 0 4px 4px #ffffff36;
+  }
+
+  100% {
+    box-shadow: none;
+  }
+}
+
+.anim-mask img {
+  mask: url("/assets/sprite.png");
+  mask-size: 7100% 100%;
+  mask-position: 0 0;
+}
+
+.start-anim-mask img {
+  animation: anim-mask 5s steps(70) forwards
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeInSack;
+  -webkit-animation-duration: 3s;
+  animation-name: fadeInSack;
+  animation-duration: 3s;
+}
+
+@keyframes fadeInSack {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

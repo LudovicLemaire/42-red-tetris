@@ -16,7 +16,7 @@ export class DialogRenameComponent {
 	) {}
 
 	editName() {
-		if (this.newName != '') {
+		if (this.newName !== '') {
 			this.socketIoService.editName(this.newName);
 			this.newName = '';
 			this.dialogRef.close();

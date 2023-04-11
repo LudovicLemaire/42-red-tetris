@@ -1,1 +1,23 @@
-<app-tetrisboard [playerGameboard]="playerGameboard"></app-tetrisboard>
+<div [class.start-anim]="playerHasLost" class="anim-mask">
+  <img class="fadeIn" [ngClass]="isMobile ? 'font-image-mobile': 'font-image'" src="/assets/wallpaper/{{rdImg}}.jpg">
+</div>
+<app-tetrisboard [playerGameboard]="playerGameboard" [anim]="true" [lineBlocked]="playerLineBlocked"></app-tetrisboard>
+<app-player-sack *ngIf="playerSack.length > 0" [sack]="playerSack" [hasLost]="playerHasLost"
+  [chaosPieceRemaining]="playerChaosPieceRemaining"></app-player-sack>
+<p class="score">Score: {{playerScore}}pts</p>
+<app-chaos-button (click)="sendChaosPiece()" [chaosPieceAvailable]="playerChaosPieceAvailable"
+  *ngIf="!isMobile"></app-chaos-button>
+<div class="boardsContainer" *ngIf="!isMobile">
+  <ng-container class="boardContainer" *ngFor="let item of spectrasReduced | keyvalue;">
+    <div>
+      <app-tetrisboard [playerGameboard]="spectrasReduced[item.key].board" [anim]="false"
+        [lineBlocked]="spectrasReduced[item.key].lineBlocked"></app-tetrisboard>
+      <p class="scoreSpectra">{{spectrasReduced[item.key].name}}: {{spectrasReduced[item.key].score}}pts</p>
+    </div>
+  </ng-container>
+  <mat-paginator *ngIf="getSpectraLength() > 6" [length]="getSpectraLength()" (page)="handlePageEvent($event)"
+    [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex" aria-label="Select page"
+    class="pagination" #paginator></mat-paginator>
+</div>
+
+<app-mobile-game-ui *ngIf="isMobile" [chaosPieceAvailable]="playerChaosPieceAvailable"></app-mobile-game-ui>

@@ -1,3 +1,111 @@
 :host {
   max-width: 40vh;
 }
+
+.boardsContainer {
+  z-index: -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  overflow: auto;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  width: 150%;
+  margin-left: -155%;
+  opacity: 50%;
+
+  div {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+}
+
+.pagination {
+  opacity: 100% !important;
+}
+
+.score {
+  width: 50%;
+  text-align: center;
+  margin-top: 25px !important;
+  margin: auto;
+}
+
+.scoreSpectra {
+  text-align: center;
+  position: absolute;
+  margin-top: 63.5%;
+}
+
+.anim-mask img {
+  -webkit-mask: url("/assets/sprite.png");
+  mask: url("/assets/sprite.png");
+  -webkit-mask-size: 7100% 100%;
+  mask-size: 7100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+.start-anim img {
+  animation: anim-mask 5s steps(70) forwards
+}
+
+.font-image {
+  z-index: 0 !important;
+  position: absolute;
+  width: 385px;
+  height: 775px;
+  margin-left: 7px;
+  margin-top: 2px;
+}
+
+.font-image-mobile {
+  z-index: 0 !important;
+  position: absolute;
+  width: 186px;
+  height: 376px;
+  margin-left: 7px;
+  margin-top: 2px;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 5s;
+  animation-name: fadeIn;
+  animation-duration: 5s;
+}
+
+@keyframes anim-mask {
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

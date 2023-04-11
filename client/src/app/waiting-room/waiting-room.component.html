@@ -1,20 +1,20 @@
 <mat-tab-group *ngIf="isAdmin" (selectedTabChange)="updateModeIndex($event);" class="modes"
   [@fadeAllAnimation]="animationOpacity">
-  <mat-tab label="Classic"><br> rush, no speed, no chrono, no battle. It's all about endurance (store score ?)</mat-tab>
-  <mat-tab label="Battle"><br>If more than 1 row is removed, an undestructible row will appear on others board (store
-    total of number if victory)</mat-tab>
-  <mat-tab label="Speed"><br>Goes faster and faster after each piece is placed (store score ?)</mat-tab>
-  <mat-tab label="Rush"><br>First to rush to 100 win (store time ?)</mat-tab>
-  <mat-tab label="Chrono"><br>5 minutes game (store score ?)</mat-tab>
+  <mat-tab label="Classic"><br> Boring and stupid mode as stated in the subject</mat-tab>
+  <mat-tab label="Battle"><br> The number of "blocked lines" is defined by the player with the highest score</mat-tab>
+  <mat-tab label="Blind"><br> Same as Battle mode, but board isn't blocked, you are just blind.</mat-tab>
+  <mat-tab label="Free"><br> No blocked line</mat-tab>
+  <mat-tab label="Semi-Chaos"><br>When a sack of piece is empty, you get a chaos piece</mat-tab>
+  <mat-tab label="PvP-Chaos"><br>You can send chaos pieces to others with score</mat-tab>
 </mat-tab-group>
 <h3 *ngIf="!isAdmin" class="wait" [style]="animationOpacity === 'false' ? 'visibility: visible' : 'visibility: hidden'">
   Waiting for Captain to launch the shuttle . . .</h3>
 
-<mat-card class="mt-20 members" [@fadeAllAnimation]="animationOpacity">
+<mat-card class="mt-20" [ngClass]="isMobile ? 'members-mobile' : 'members'" [@fadeAllAnimation]="animationOpacity">
   <mat-chip-list aria-label="Total players" class="container-row-right">
     <mat-chip>{{members.length}}</mat-chip>
   </mat-chip-list>
-  <mat-list class="list">
+  <mat-list [ngClass]="isMobile ? 'list-mobile' : 'list'">
     <mat-list-item *ngFor="let member of members">
       <mat-icon mat-list-icon>{{member.isAdmin ? 'rocket' : 'person'}}</mat-icon>
       <div mat-line>{{member.name}}</div>

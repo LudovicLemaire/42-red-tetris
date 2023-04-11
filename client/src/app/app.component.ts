@@ -25,23 +25,23 @@ export class AppComponent implements OnInit, OnDestroy {
 	navList: { label: string; route: string; icon: string; disabled: boolean }[] =
 		[
 			{
-				label: 'First component',
-				route: 'first-component',
+				label: 'Home',
+				route: '',
 				icon: 'home',
 				disabled: false,
 			},
 			{
-				label: 'Games component',
-				route: 'games-component',
+				label: 'Games list',
+				route: 'games',
 				icon: 'settings',
 				disabled: false,
 			},
-			{
-				label: 'Game component',
-				route: 'game-component',
-				icon: 'videogame_asset',
-				disabled: false,
-			},
+			// {
+			// 	label: 'Game component',
+			// 	route: 'game-component',
+			// 	icon: 'videogame_asset',
+			// 	disabled: false,
+			// },
 			{
 				label: 'Game room',
 				route: '',
@@ -74,27 +74,33 @@ export class AppComponent implements OnInit, OnDestroy {
 	constructor(
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
-		private overlay: OverlayContainer,
-		private socketIoService: SocketIoService,
+		public overlay: OverlayContainer,
+		public socketIoService: SocketIoService,
 		private toastService: HotToastService,
 		private router: Router,
 		private playerService: PlayerService
 	) {
 		this.mobileQuery = media.matchMedia('(max-width: 600px)');
+		/* istanbul ignore next */
 		this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+		/* istanbul ignore next */
 		this.mobileQuery.addEventListener('change', _ => {
 			this._mobileQueryListener;
 		});
+		if (this.mobileQuery.matches) {
+			this.menu = true;
+		}
 	}
 
 	triggerMenu(): void {
 		this.menu = !this.menu;
 	}
 
+	/* istanbul ignore next */
 	ngOnInit(): void {
-		const windowsLightModeActive =
-			window.matchMedia &&
-			window.matchMedia('(prefers-color-scheme: light)').matches;
+		const windowsLightModeActive = false;
+		// window.matchMedia &&
+		// window.matchMedia('(prefers-color-scheme: light)').matches;
 		this.changeTheme(windowsLightModeActive);
 
 		const mql = window.matchMedia('(prefers-color-scheme: light)');
@@ -110,7 +116,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			.toast()
 			.subscribe((toast: [string, string]) => {
 				if (toast[1] === 'That room name is already taken')
-					this.router.navigate(['/games-component']);
+					this.router.navigate(['/games']);
 				if (
 					toast[0] === 'info' ||
 					toast[0] === 'error' ||
@@ -170,24 +176,26 @@ export class AppComponent implements OnInit, OnDestroy {
 				});
 				this.playerService.setIsAdmin(false);
 				this.playerService.setRoom('');
-				this.router.navigate(['/games-component']);
+				this.playerService.setIsGameActive(false);
+				this.router.navigate(['/games']);
 			}
 		});
 	}
 
+	/* istanbul ignore next */
 	ngOnDestroy(): void {
 		this.mobileQuery.removeEventListener('change', _ => {
 			this._mobileQueryListener;
 		});
 		this.socketIoService.unsubSocket('toast');
-		this.toastSocketSub$.unsubscribe();
+		if (this.toastSocketSub$) this.toastSocketSub$.unsubscribe();
 		this.socketIoService.unsubSocket('self_is_admin');
-		this.isAdminSocketSub$.unsubscribe();
+		if (this.isAdminSocketSub$) this.isAdminSocketSub$.unsubscribe();
 		this.socketIoService.unsubSocket('reset');
-		this.resetSocketSub$.unsubscribe();
+		if (this.resetSocketSub$) this.resetSocketSub$.unsubscribe();
 		this.socketIoService.unsubSocket('connect_error');
-		this.connectErrorSocketSub$.unsubscribe();
-		this.roomPlayerSub$.unsubscribe();
+		if (this.connectErrorSocketSub$) this.connectErrorSocketSub$.unsubscribe();
+		if (this.roomPlayerSub$) this.roomPlayerSub$.unsubscribe();
 	}
 
 	changeTheme(lightMode: boolean): void {

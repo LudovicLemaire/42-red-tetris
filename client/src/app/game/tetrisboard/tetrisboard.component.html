@@ -1,13 +1,13 @@
 <div class="FlexContainer">
   <ng-container *ngFor="let a of playerGameboard; let i = index">
     <ng-container *ngFor="let b of a; let y = index">
-      <div
-        style="--i:{{(i+y)*0.75+5}}; opacity: 0;"
-        class="test"
-        [ngClass]="{
-          finalPlace: b === 1,
+      <div style="--i:{{(i+y)*0.75+5}}; opacity: 0;" [class.anim]="doAnim" [class.show]="!doAnim" [ngClass]="{
+          finalPlace: b === 1 && anim,
+          finalPlaceSpectra: b === 1 && !anim,
           piece: b === 2,
-          preFinalPlace: b === 3
+          preFinalPlace: b === 3,
+          lineBlocked: i > playerGameboard.length - 1 - lineBlocked && anim,
+          lineBlockedSpectra: i > playerGameboard.length - 1 - lineBlocked && !anim
         }">
       </div>
     </ng-container>

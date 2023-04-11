@@ -2,7 +2,8 @@
   "scripts": {
     "lint": "eslint --ext .tsx,.ts --fix",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "start": "nodemon src/script.ts"
   },
   "dependencies": {
     "@types/node": "^18.0.4",

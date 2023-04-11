@@ -5,6 +5,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
 import { SocketIoService } from '../socketio-service/socket-io.service';
 import { PlayerService } from '../player-service/player.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 type Info = {
 	user: string;
@@ -75,7 +76,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 	constructor(
 		private socketIoService: SocketIoService,
 		public dialog: MatDialog,
-		private playerService: PlayerService
+		private playerService: PlayerService,
+		private media: MediaMatcher
 	) {}
 
 	ngOnInit(): void {
@@ -120,19 +122,25 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 		this.room$ = this.playerService.getRoom().subscribe((room: string) => {
 			this.room = room;
 		});
+
+		/* istanbul ignore next */
+		if (this.media.matchMedia('(max-width: 600px)').matches) {
+			this.expanded = false;
+		}
 	}
 
 	ngOnDestroy() {
 		this.socketIoService.unsubSocket('info');
-		this.getNewInfoSub$.unsubscribe();
+		if (this.getNewInfoSub$) this.getNewInfoSub$.unsubscribe();
 		this.socketIoService.unsubSocket('info_room');
-		this.getNewInfoRoomSub$.unsubscribe();
+		if (this.getNewInfoRoomSub$) this.getNewInfoRoomSub$.unsubscribe();
 		this.socketIoService.unsubSocket('self_get_room');
-		this.selfJoinRoomSub$.unsubscribe();
-		this.isAdminSub$.unsubscribe();
-		this.room$.unsubscribe();
+		if (this.selfJoinRoomSub$) this.selfJoinRoomSub$.unsubscribe();
+		if (this.isAdminSub$) this.isAdminSub$.unsubscribe();
+		if (this.room$) this.room$.unsubscribe();
 	}
 
+	/* istanbul ignore next */
 	updateChatIndex($event: MatTabChangeEvent) {
 		this.activeChatIndex = $event.index;
 	}

@@ -1,12 +1,33 @@
-import { Component, Input } from '@angular/core';
+import {
+	Component,
+	Input,
+	OnChanges,
+	OnInit,
+	SimpleChanges,
+} from '@angular/core';
 @Component({
-  selector: 'app-tetrisboard',
-  templateUrl: './tetrisboard.component.html',
-  styleUrls: ['./tetrisboard.component.scss'],
-
+	selector: 'app-tetrisboard',
+	templateUrl: './tetrisboard.component.html',
+	styleUrls: ['./tetrisboard.component.scss'],
 })
-export class TetrisboardComponent  {
-  @Input() playerGameboard!: number[][];
+export class TetrisboardComponent implements OnChanges, OnInit {
+	@Input() playerGameboard!: number[][];
+	@Input() anim!: boolean;
+	@Input() lineBlocked!: number;
+	public doAnim: boolean = true;
+	constructor() {}
 
-  constructor() {}
+	ngOnInit(): void {
+		if (!this.anim) {
+			this.doAnim = false;
+		}
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (this.doAnim) {
+			setTimeout(() => {
+				this.doAnim = false;
+			}, 3000);
+		}
+	}
 }

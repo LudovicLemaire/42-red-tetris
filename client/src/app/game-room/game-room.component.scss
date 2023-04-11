@@ -7,4 +7,16 @@
   width: 400px;
   margin-top: -75px;
   height: 780px;
+  box-shadow:
+    inset 0 2px 0 rgba(0, 0, 0, .2),
+    0 0 4px rgba(0, 0, 0, 0.1);
+
+
+
+}
+
+.card-mobile {
+  width: 200px;
+  margin-top: -75px;
+  height: 380px;
 }

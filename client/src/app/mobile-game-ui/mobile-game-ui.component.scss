@@ -1,0 +1,41 @@
+.grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.icon {
+  transform: scale(2.5);
+  color: lightgrey;
+}
+
+.icon-small {
+  transform: scale(1.5);
+  color: lightgrey;
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeInMid;
+  -webkit-animation-duration: 5s;
+  animation-name: fadeInMid;
+  animation-duration: 5s;
+}
+
+.hide {
+  opacity: 0 !important;
+}
+
+@keyframes fadeInMid {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

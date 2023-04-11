@@ -1,0 +1,26 @@
+<mat-grid-list cols="12" rowHeight="25%" class="grid fadeIn">
+  <mat-grid-tile (click)="pushUI('ArrowLeft')" colspan="5" rowspan="3" [style.background]="'#ff50500f'">
+    <mat-icon class="icon" aria-hidden="false" aria-label="Left" fontIcon="keyboard_double_arrow_left"
+      style="margin-left: -50px;"></mat-icon>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2" rowspan="3" [style.background]="''"></mat-grid-tile>
+
+  <mat-grid-tile (click)="pushUI('ArrowRight')" colspan="5" rowspan="3" [style.background]="'#5050ff0f'">
+    <mat-icon class="icon" aria-hidden="false" aria-label="Right" fontIcon="keyboard_double_arrow_right"
+      style="margin-right: -50px;"></mat-icon>
+  </mat-grid-tile>
+
+  <mat-grid-tile (click)="pushUI('ArrowUp')" colspan="4" rowspan="1" [style.background]="'#50ff500f'">
+    <mat-icon class="icon-small" aria-hidden="false" aria-label="Rotation" fontIcon="rotate_90_degrees_cw"></mat-icon>
+  </mat-grid-tile>
+
+  <mat-grid-tile (click)="pushUI('Chaos')" colspan="4" rowspan="1" [style.background]="'#ff50ff0f'"
+    [class.hide]="chaosPieceAvailable <= 0">
+    <mat-icon class="icon-small" aria-hidden="false" aria-label="Chaos" fontIcon="bug_report"></mat-icon>
+  </mat-grid-tile>
+
+  <mat-grid-tile (click)="pushUI(' ')" colspan="4" rowspan="1" [style.background]="'#ffd7000f'">
+    <mat-icon class="icon-small" aria-hidden="false" aria-label="Fall" fontIcon="keyboard_double_arrow_down"></mat-icon>
+  </mat-grid-tile>
+</mat-grid-list>
