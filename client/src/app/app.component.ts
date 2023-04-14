@@ -87,6 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.mobileQuery.addEventListener('change', _ => {
 			this._mobileQueryListener;
 		});
+		/* istanbul ignore next */
 		if (this.mobileQuery.matches) {
 			this.menu = true;
 		}

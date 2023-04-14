@@ -3,6 +3,7 @@
     "lint": "eslint --ext .tsx,.ts --fix",
     "test": "jest",
     "coverage": "jest --coverage",
+    "coverageLeak": "jest --coverage --detectOpenHandles",
     "start": "nodemon src/script.ts"
   },
   "dependencies": {

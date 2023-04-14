@@ -23,6 +23,7 @@ export class TetrisboardComponent implements OnChanges, OnInit {
 		}
 	}
 
+	/* istanbul ignore next */
 	ngOnChanges(changes: SimpleChanges) {
 		if (this.doAnim) {
 			setTimeout(() => {

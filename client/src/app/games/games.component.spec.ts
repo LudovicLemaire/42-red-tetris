@@ -58,4 +58,12 @@ describe('GamesComponent', () => {
 		nameInput.dispatchEvent(new Event('input'));
 		expect(component.getErrorMessage()).toEqual('');
 	});
+
+	it('move button', () => {
+		component.moveButton();
+		component.moveButton();
+		component.moveButton();
+		component.moveButton();
+		expect(component.typeAnimation).toEqual(4);
+	});
 });

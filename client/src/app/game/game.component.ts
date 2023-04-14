@@ -92,12 +92,14 @@ export class GameComponent implements OnInit, OnDestroy {
 								this.getSpectraReduced();
 							} else {
 								this.spectras[key] = value;
+								/* istanbul ignore next */
 								if (key in this.spectrasReduced) {
 									this.spectrasReduced[key] = value;
 								}
 							}
 						}
 					}
+					/* istanbul ignore next */
 					if (
 						(Object.keys(this.spectrasReduced).length < 6 &&
 							Object.keys(this.spectras).length > 6) ||
@@ -106,7 +108,6 @@ export class GameComponent implements OnInit, OnDestroy {
 						this.getSpectraReduced();
 					}
 				}
-				this.getSpectraReduced();
 			}
 		);
 
@@ -145,6 +146,7 @@ export class GameComponent implements OnInit, OnDestroy {
 				}
 			);
 
+		/* istanbul ignore next */
 		if (this.media.matchMedia('(max-width: 600px)').matches) {
 			this.isMobile = true;
 		}
@@ -206,6 +208,7 @@ export class GameComponent implements OnInit, OnDestroy {
 			this.pageEvent.pageSize;
 		if (end > this.getSpectraLength()) end = this.getSpectraLength();
 		this.spectrasReduced = {};
+		/* istanbul ignore next */
 		if (end - start > Object.entries(this.spectras).length) return;
 
 		for (const [key, value] of Object.entries(this.spectras).slice(

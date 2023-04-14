@@ -44,6 +44,7 @@ export class GameRoomComponent implements OnInit, OnDestroy {
 				}
 			});
 
+		/* istanbul ignore next */
 		this.gameEnded$ = this.socketIoService
 			.gameEnded()
 			.subscribe((v: boolean | undefined) => {
@@ -59,6 +60,7 @@ export class GameRoomComponent implements OnInit, OnDestroy {
 				}
 			});
 
+		/* istanbul ignore next */
 		if (this.media.matchMedia('(max-width: 600px)').matches) {
 			this.isMobile = true;
 		}

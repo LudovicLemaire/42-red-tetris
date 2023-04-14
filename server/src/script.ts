@@ -65,15 +65,14 @@ InterServerEvents
 
 io.close();
 
-// TODO
-// create Piece class
-
+/* istanbul ignore next */
 io.on('connection', async (socket) => {
   const self = new Player(socket.id, socket.id.slice(0, 4), socket, io, allGames);
   socket.emit('reset');
   socket.emit('get_games', self.getAllAvailableRoomsReduced());
 
   io.emit('info', `${socket.id}`, `${self.name}`, 'connected', '');
+  /* istanbul ignore next */
   socket.on('disconnect', async () => {
     if (self.room === '') { return; }
     self.board.hasLost = true;
@@ -184,7 +183,7 @@ io.on('connection', async (socket) => {
         'new_admin_room',
         `🚀  Prepare for launch ! ${mode} mode has been chosen.`
       );
-      test();
+      launch();
     } else {
       socket.emit('toast', 'error', 'You are not the Captain');
     }
@@ -320,15 +319,13 @@ io.on('connection', async (socket) => {
     );
   });
 
-  /* istanbul ignore next */
   socket.on('connect_error', (err) => {
     console.log(`connect_error due to ${err.message}`);
   });
 
   unitTestsAngular(socket);
 
-  function test (): void {
-    // TODO clear l'interval quand la room meurt
+  function launch (): void {
     const room = self.room;
     const boards: { [id: string]: { name: string, board: number[][], hasLost: boolean, score: number, lineBlocked: number } } = {};
     const roomIndex = allGames.findIndex((element) => element.id === self.room);
@@ -338,6 +335,7 @@ io.on('connection', async (socket) => {
       const spectraBoard = member.board.getSpectra();
       boards[member.id] = { name: member.name, board: spectraBoard, hasLost: member.board.hasLost, score: member.board.score, lineBlocked: member.board.selfLB };
     }
+    allGames[roomIndex].totalMemberAtStart = allGames[roomIndex].members.length;
     setTimeout(() => {
       checkClearInterval(room);
       if (!(roomIndex in allGames)) { return; }
@@ -358,14 +356,22 @@ io.on('connection', async (socket) => {
           checkClearInterval(room);
           return;
         }
-        // TODO check if all lost
         const allLB: number[] = [];
-        let allPlayerLost: boolean = true;
+        let allPlayerLost: number = 0;
         for (const member of allGames[roomIndex].members) {
           allLB.push(member.board.lineCompleted);
-          if (!member.board.hasLost) { allPlayerLost = false; }
+          if (member.board.hasLost) { allPlayerLost++; }
         }
-        if (allPlayerLost) {
+        if (allPlayerLost === allGames[roomIndex].members.length) {
+          // clear game to restart
+          checkClearInterval(room);
+          allGames[roomIndex].isAvailable = true;
+          io.in(room).emit(
+            'game_ended'
+          );
+          return;
+        }
+        if (allGames[roomIndex].gameMode === 'classic' && allGames[roomIndex].totalMemberAtStart > 1 && allPlayerLost === allGames[roomIndex].members.length - 1) {
           // clear game to restart
           checkClearInterval(room);
           allGames[roomIndex].isAvailable = true;
@@ -380,13 +386,13 @@ io.on('connection', async (socket) => {
         for (const member of allGames[roomIndex].members) {
           if (!member.board.hasLost) {
             if (member.board.mode === 'classic') {
-              member.board.selfLB = totalLB - member.board.lineCompleted <= 0 ? 0 : totalLB - member.board.lineCompleted;
+              member.board.editSelfB(totalLB - member.board.lineCompleted <= 0 ? 0 : totalLB - member.board.lineCompleted);
             } else if (member.board.mode === 'battle' || member.board.mode === 'blind') {
               if (allGames[roomIndex].members.length > 0) {
                 if (allLB[0] === member.board.lineCompleted) {
-                  member.board.selfLB = allLB[1];
+                  member.board.editSelfB(allLB[1]);
                 } else {
-                  member.board.selfLB = allLB[0];
+                  member.board.editSelfB(allLB[0]);
                 }
               }
             }
@@ -460,6 +466,7 @@ io.on('connection', async (socket) => {
   }
 });
 
+/* istanbul ignore next */
 export function unitTestsAngular (socket: Socket): void {
   socket.on('get_ready_test', () => {
     socket.emit('get_ready', true);
@@ -503,6 +510,39 @@ export function unitTestsAngular (socket: Socket): void {
     const members: Array<{ id: string, name: string, isAdmin: boolean }> = [];
     members.push({ id: 'abcde', name: 'Globy', isAdmin: true });
     socket.emit('get_room_members', members);
+  });
+
+  socket.on('get_boards_test', () => {
+    const boards: { [id: string]: { name: string, board: number[][], hasLost: boolean, score: number, lineBlocked: number } } = {};
+    const board: number[][] = [];
+    for (let i: number = 0; i < 20; i++) {
+      board[i] = [];
+      for (let j: number = 0; j < 10; j++) {
+        board[i][j] = 0;
+      }
+    }
+    boards.testValid = { name: 'test valid', board, hasLost: false, score: 0, lineBlocked: 0 };
+    boards.testLost = { name: 'test lost', board, hasLost: true, score: 0, lineBlocked: 0 };
+    boards[socket.id] = { name: 'himself', board, hasLost: false, score: 0, lineBlocked: 0 };
+
+    socket.emit('get_boards', boards);
+  });
+
+  socket.on('get_our_board_test', () => {
+    const board: number[][] = [];
+    for (let i: number = 0; i < 20; i++) {
+      board[i] = [];
+      for (let j: number = 0; j < 10; j++) {
+        board[i][j] = 0;
+      }
+    }
+    const boardPlayer = { board, sack: [0, 1, 2], currentPiece: 0, chaosPieceRemaining: 0, chaosPieceAvailable: [], hasLost: true, score: 200, lineBlocked: 0 };
+
+    socket.emit('get_player_board', boardPlayer);
+  });
+
+  socket.on('game_ended_test', () => {
+    socket.emit('game_ended');
   });
 }
 

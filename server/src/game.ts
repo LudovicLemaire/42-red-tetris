@@ -6,11 +6,13 @@ export class Game {
   public members: Player[];
   public isAvailable: boolean;
   public gameMode: GameMode;
+  public totalMemberAtStart: number;
 
   constructor (id: string) {
     this.id = id;
     this.isAvailable = true;
     this.members = [];
     this.gameMode = 'classic';
+    this.totalMemberAtStart = 0;
   }
 }

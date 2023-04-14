@@ -16,6 +16,31 @@ describe('SocketIoService', () => {
 		expect(service).toBeTruthy();
 	});
 
+	it('getRoomMembersRequest', () => {
+		service.getRoomMembersRequest();
+		expect(service).toBeTruthy();
+	});
+
+	it('movePiece', () => {
+		service.movePiece('ArrowLeft');
+		expect(service).toBeTruthy();
+	});
+
+	it('sendChaosPiece', () => {
+		service.sendChaosPiece();
+		expect(service).toBeTruthy();
+	});
+
+	it('resetBoards', () => {
+		service.resetBoards();
+		expect(service).toBeTruthy();
+	});
+
+	it('resetPlayerBoard ', () => {
+		service.resetPlayerBoard();
+		expect(service).toBeTruthy();
+	});
+
 	it('test if service survived after joining room', done => {
 		setTimeout(() => {
 			service.joinRoom('Room-1');
@@ -188,6 +213,66 @@ describe('SocketIoService', () => {
 				}
 			);
 		service.socket.emit('get_room_members_test');
+	});
+
+	it('getBoards', done => {
+		let getBoards = service.getBoards().subscribe(
+			(boards: {
+				[key: string]: {
+					name: string;
+					board: number[][];
+					hasLost: boolean;
+					score: number;
+					lineBlocked: number;
+				};
+			}) => {
+				if (boards !== undefined && Object.entries(boards).length > 0) {
+					service.unsubSocket('get_boards');
+					getBoards.unsubscribe();
+					expect(Object.entries(boards).length).toBe(3);
+					done();
+				}
+			}
+		);
+		service.socket.emit('get_boards_test');
+	});
+
+	it('getPlayerBoard', done => {
+		let getPlayerBoard = service
+			.getPlayerBoard()
+			.subscribe(
+				(userData: {
+					board: number[][];
+					sack: number[];
+					currentPiece: number;
+					chaosPieceRemaining: number;
+					chaosPieceAvailable: number;
+					hasLost: boolean;
+					score: number;
+					lineBlocked: number;
+				}) => {
+					if (userData.board.length !== 0) {
+						service.unsubSocket('get_player_board');
+						getPlayerBoard.unsubscribe();
+						expect(userData.score).toBe(200);
+						expect(userData.hasLost).toBeTruthy();
+						done();
+					}
+				}
+			);
+		service.socket.emit('get_our_board_test');
+	});
+
+	it('gameEnded ', done => {
+		let gameEnded = service.gameEnded().subscribe(ended => {
+			if (ended) {
+				service.unsubSocket('game_ended');
+				gameEnded.unsubscribe();
+				expect(ended).toBeTruthy();
+				done();
+			}
+		});
+		service.socket.emit('game_ended_test');
 	});
 });
 

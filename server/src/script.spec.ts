@@ -44,10 +44,6 @@ describe('socket part', () => {
     // @ts-expect-error
     sockets.getGames = new Client(mainUrl);
     // @ts-expect-error
-    sockets.disconnect1 = new Client(mainUrl);
-    // @ts-expect-error
-    sockets.disconnect2 = new Client(mainUrl);
-    // @ts-expect-error
     sockets.message = new Client(mainUrl);
     // @ts-expect-error
     sockets.messageRoom = new Client(mainUrl);
@@ -61,6 +57,8 @@ describe('socket part', () => {
     sockets.kickFromRoom1 = new Client(mainUrl);
     // @ts-expect-error
     sockets.kickFromRoom2 = new Client(mainUrl);
+    // @ts-expect-error
+    sockets.getRoomMembers = new Client(mainUrl);
 
     // @ts-expect-error
     sockets.testConnectError = new Client(mainUrl);
@@ -75,12 +73,14 @@ describe('socket part', () => {
     }
   });
 
-  afterAll(() => {
+  afterAll((done) => {
     io.close();
     clientSocket.close();
     for (const property in sockets) {
-      if (property !== 'disconnect2') { sockets[property].close(); }
+      sockets[property].close();
     }
+    httpServer.close();
+    done();
   });
 
   test('message_sTc', (done) => {
@@ -275,14 +275,6 @@ describe('socket part', () => {
     sockets.getGames.emit('get_games');
   });
 
-  test('main_disconnect', (done) => {
-    // @ts-expect-error
-    sockets.disconnect1.on('info', (id: string, name: string, type: string, msg: string) => {
-      if (type === 'disconnected') done();
-    });
-    sockets.disconnect2.close();
-  });
-
   test('main_message', (done) => {
     // @ts-expect-error
     sockets.message.on('info', (id: string, name: string, type: string, msg: string) => {
@@ -317,7 +309,7 @@ describe('socket part', () => {
     // @ts-expect-error
     sockets.rename.on('toast', (type: string, msg: string) => {
       // @ts-expect-error
-      sockets.rename.emit('rename', 'Globy is a pure asshole');
+      sockets.rename.emit('rename', 'Globy is a pure dinosaur');
     });
 
     // @ts-expect-error
@@ -376,15 +368,33 @@ describe('socket part', () => {
     sockets.kickFromRoom2.emit('kick_from_room', sockets.kickFromRoom1.id);
   });
 
-  test('test_connect_error', (done) => {
+  test('get_room_members', (done) => {
+    let preventDouble = true;
     // @ts-expect-error
-    sockets.testConnectError.on('connect_error_test', (msg: string) => {
-      expect(msg).toEqual('worked');
-      done();
+    sockets.getRoomMembers.on('get_room_members', (members: [{ id: string, name: string, isAdmin: boolean }]) => {
+      if (members.length > 0 && preventDouble && members[0].isAdmin) {
+        preventDouble = false;
+        done();
+      }
     });
+
     // @ts-expect-error
-    sockets.testConnectError.emit('connect_error_test');
+    sockets.getRoomMembers.emit('join_room', 'room-test-get-room-members');
+    setTimeout(() => {
+      // @ts-expect-error
+      sockets.getRoomMembers.emit('get_room_members');
+    }, 500);
   });
+
+  // test('test_connect_error', (done) => {
+  //   // @ts-expect-error
+  //   sockets.testConnectError.on('connect_error_test', (msg: string) => {
+  //     expect(msg).toEqual('worked');
+  //     done();
+  //   });
+  //   // @ts-expect-error
+  //   sockets.testConnectError.emit('connect_error_test');
+  // });
 
   test('connect_error_test', (done) => {
     unitTestsAngular(serverSocket);

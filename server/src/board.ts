@@ -507,6 +507,10 @@ export class Board {
     this.chaosPieceSent++;
   }
 
+  editSelfB (newValue: number): void {
+    if (newValue > this.selfLB) { this.selfLB = newValue; }
+  }
+
   // based on Fisher–Yates algorithm
   private static shuffle (pieces: number[], seed: number): number[] {
     let m = pieces.length;
